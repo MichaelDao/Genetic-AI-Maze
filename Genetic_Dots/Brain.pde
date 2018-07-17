@@ -2,10 +2,8 @@ class Brain
 {
   // the series of vectors (positions) which get the dot to the goal
   PVector[] direction; 
-
-  // for the update() method from Population
-  int step = 0;
-
+  int step = 0;  // for the update() method from Population
+  
   Brain(int size)
   {
     // initialize direction array

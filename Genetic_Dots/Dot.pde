@@ -4,11 +4,9 @@ class Dot
   // PVector(x, y) --> x is the x-coord, y is the y-coord.
   PVector position, velocity, acceleration;
   Brain brain;
-
   boolean dead = false;
   boolean reachGoal = false;
   boolean isBest = false; // best dot from previous generation
-
   float fitness = 0;
 
   // Constructor
@@ -25,18 +23,18 @@ class Dot
   // draw dots
   void show()
   {
-    // if this dot is the best, draw as bigger green dot
+    // best dot
     if (isBest) 
     {
       fill(0, 255, 0);
       ellipse(position.x, position.y, 16, 16);
     } 
 
-    // just your average dot
+    // regular dot
     else 
     {
       fill(0);
-      ellipse(position.x, position.y, 4, 4);
+      ellipse(position.x, position.y, 8, 8);
     }
   }
 
@@ -92,5 +90,32 @@ class Dot
     velocity.add(acceleration);
     velocity.limit(5); //not too fast
     position.add(velocity);
+  }
+
+  // calculate dot fitness
+  void calculateFitness()
+  {
+    // calculate fitness based on amount of
+    // steps it took to get there if goal reached
+    if (reachGoal)
+    {
+      fitness = 1.0/16.0 + 10000.0/(float)(brain.step * brain.step);
+    } 
+
+    // calculate fitness based on how close it
+    // is to the goal if it didnt reach it
+    else
+    {
+      float distanceToGoal = dist(position.x, position.y, goal.x, goal.y);  
+      fitness = 1.0/(distanceToGoal * distanceToGoal);
+    }
+  }
+
+  Dot newBaby()
+  {
+    Dot baby = new Dot();
+    // babies are the same as their parents
+    baby.brain = brain.clone();
+    return baby;
   }
 }

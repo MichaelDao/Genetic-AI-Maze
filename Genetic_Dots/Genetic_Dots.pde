@@ -24,13 +24,18 @@ void draw()
   fill(0, 0, 255);
   rect(0, 300, 600, 10);
 
+  // all dots have died
   if (dotPop.allDead()) 
   {
     //genetic algorithm
-    //dotPop.calculateFitness();
-    //dotPop.naturalSelection();
-    //dotPop.mutateDemBabies();
-  } else {
+    dotPop.calculateFitness();
+    dotPop.naturalSelection();
+    dotPop.mutateNewPop();
+  } 
+
+  // some dots are still alive
+  else 
+  {
     //if any of the dots are still alive then update and then show them
     dotPop.update();
     dotPop.show();
