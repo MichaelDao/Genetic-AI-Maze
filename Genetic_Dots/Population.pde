@@ -6,6 +6,7 @@ class Population
   int gen = 1;
   int minStep = 1000;
   int bestDot = 0; // index of our best dot
+  int livePop = 0;
 
   // Initialize with a population of size (e.g. 1000)
   Population(int size)
@@ -86,11 +87,11 @@ class Population
     // tally up the total overall fitness of the dot array
     calculateFitnessSum();
 
-  // set the first dot in the array as the best dot
+    // set the first dot in the array as the best dot
     newDots[0] = dots[bestDot].newBaby();
     newDots[0].isBest = true;
 
-  // generate new array with new selected dots
+    // generate new array with new selected dots
     for (int x = 1; x < newDots.length; x++)
     {
       Dot parent = selectParent();
@@ -124,7 +125,6 @@ class Population
     if (dots[bestDot].reachGoal)
     {
       minStep = dots[bestDot].brain.step;
-      println("step: ", minStep);
     }
   }
 
@@ -155,5 +155,16 @@ class Population
   {
     for (int x = 1; x < dots.length; x++) 
       dots[x].brain.mutate();
+  }
+
+  // count total of living dots
+  int livePopCount()
+  {
+    livePop = 0;
+    for (int x = 1; x < dots.length; x++) 
+      if (!dots[x].dead)
+        livePop++;
+
+    return livePop;
   }
 }

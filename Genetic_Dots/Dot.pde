@@ -15,7 +15,7 @@ class Dot
     brain = new Brain(1000); // new brain with 1000 instructions
 
     // initial position at bottom window with no velocity or acceleration
-    position = new PVector(width/2, height- 10);
+    position = new PVector(800, height-10);
     velocity = new PVector();
     acceleration = new PVector();
   }
@@ -27,13 +27,19 @@ class Dot
     if (isBest) 
     {
       fill(0, 255, 0);
-      ellipse(position.x, position.y, 16, 16);
+      ellipse(position.x, position.y, 12, 12);
     } 
 
     // regular dot
     else 
     {
-      fill(0);
+      if (dead)
+      {
+        fill(0);
+      } else
+      {
+        fill(255, 0, 255);
+      }
       ellipse(position.x, position.y, 8, 8);
     }
   }
@@ -48,19 +54,23 @@ class Dot
       move();
 
       // if dot is found near window edge, then kill it
-      if (position.x < 2 || position.y < 2 ||
-        position.x > width-2 || position.y > height -2) 
+      if (position.x < 2 || position.y < 2 || position.x > width - 2 || position.y > height - 2) 
       {
         dead = true;
       } 
 
-      // if the dot has hit an obstacle, then kill it
-      else if (position.x< 600 && position.y < 310 && 
-        position.x > 0 && position.y > 300) 
+      // dot encountered an obstacle
+      else if (position.x < 600 && position.y < 320 && position.x > 0 && position.y > 300) 
       {
         dead = true;
       }
 
+      // dot encountered an obstacle 2
+      else if (position.x < 1000 && position.y < 520 && position.x > 200 && position.y > 500) 
+      {
+        dead = true;
+      }
+      
       // this dot has come into contact with the goal
       else if (dist(position.x, position.y, goal.x, goal.y) < 5) 
       {
