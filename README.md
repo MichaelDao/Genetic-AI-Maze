@@ -9,3 +9,7 @@ Each dot has a brain that 'learns' how to move around, the more succesful dots w
 
 ## 300+ generations
 ![Alt Text](https://github.com/saladsnake/Evolutionary-smart-dots/raw/master/resources/300+.gif)
+
+### Notes
+- Green dot is the best dot of last generation
+- Red dot is the goal
